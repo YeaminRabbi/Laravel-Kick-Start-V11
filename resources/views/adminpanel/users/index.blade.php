@@ -35,7 +35,6 @@
                 <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Image</th>
                         <th>Name</th>
                         <th>Role</th>
                         <th>Date</th>
@@ -48,9 +47,6 @@
                     @foreach ($users as $key=> $data)
                     <tr>
                         <td>{{ $key+1 }}</td>
-                        <td>
-                            <img src="{{ asset($data->image->url ?? '' ) }}" alt="User Image" style="max-width: 100px;max-height:80px;">
-                        </td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->getRoleNames()[0] ?? 'user' }}</td>
                         <td>{{ date('h:ia', strtotime($data->created_at))  }} <br>

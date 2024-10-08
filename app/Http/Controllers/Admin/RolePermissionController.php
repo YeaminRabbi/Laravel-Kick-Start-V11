@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class RolePermissionController extends Controller
+class RolePermissionController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:role-permission-module',
+        ];
+    }
+
     public function index()
     {
         $roles = Role::with('permissions')->get();

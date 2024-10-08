@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Models\User;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
@@ -10,8 +11,17 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+            'role_or_permission:user-module',
+        ];
+    }
+
    /**
      * Display a listing of the resource.
      *

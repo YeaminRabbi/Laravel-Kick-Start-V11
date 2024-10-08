@@ -90,7 +90,7 @@
                     <form action="{{ route('role_update') }}" method="POST">
                         @csrf
 
-                        <input type="hidden" id="role_form_id" name="role_id" >
+                        <input type="text" id="role_form_id" name="role_id" >
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                             <div class="col-sm-10">
@@ -245,49 +245,14 @@
         </div>
 
 
-        <div id="PermissionList_New" style="display: none;" class="col-md-6 col-lg-4">
-
-        </div>
-
-
-        {{-- <div class="col-md-6 col-lg-4" style="display: none;" id="PermissionList">
-            <div class="card mb-4">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Assign Permissions</h5>
-                    <h3 id="RoleNameToAssign"> </h3>
-                </div>
-                
-                <div class="card-body">
-                    <form action="{{ route('role_permission_assign') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="role_id" id="SelectedROLE">
-                        @if ($permissions->isNotEmpty())
-                            @foreach ($permissions as $key => $item)
-                                <div class="col-md-12">
-                                    <input type="checkbox" class="mr-4" name="selected_permission[]" id="CheckListPermission-{{ $key }}" value="{{ $item->id }}">
-        
-                                    <label for="CheckListPermission-{{ $key }}">{{ $item->name }}</label>
-                                </div>
-                            @endforeach
-                        @endif
-                        <div class="row justify-content-start mt-3">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-success btn-sm">Save Changes</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-
-
+        <div id="PermissionList_New" style="display: none;" class="col-md-6 col-lg-4"></div>
     </div>
 
 </div>
 @endsection
 
 
-@section('footer_js')
+@section('js')
     <script>
         $('#notificationAlert').delay(3000).fadeOut('slow');     
         function show(x,y)
@@ -377,7 +342,7 @@
                                         permission_list.map((item, index) => {
                                             return `
                                                 <div class="col-md-12">
-                                                    <input type="checkbox" class="mr-4" name="selected_permission[]" id="CheckListPermission-${index}" value="${item.id}" ${role_has_permission_ids.includes(item.id) ? 'checked' : ''}>
+                                                    <input type="checkbox" class="mr-4" name="selected_permission[]" id="CheckListPermission-${index}" value="${item.name}" ${role_has_permission_ids.includes(item.id) ? 'checked' : ''}>
                                                     <label for="CheckListPermission-${index}">${item.name}</label>
                                                 </div>
                                             `;

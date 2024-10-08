@@ -18,9 +18,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function() {
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'profile_edit'])->name('profile_edit');
     Route::post('/profile/update', [ProfileController::class, 'profile_update'])->name('profile_update');
-    
-    
 
+    
     Route::get('/role-management', [RolePermissionController::class, 'index'])->name('role_management');
     Route::post('/role-management/add', [RolePermissionController::class, 'role_add'])->name('role_add');
     Route::get('/role-management/delete/{id}', [RolePermissionController::class, 'role_delete'])->name('role_delete');

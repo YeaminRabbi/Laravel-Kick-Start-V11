@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -58,23 +60,9 @@ class UserController extends Controller
 
 
         // using Morph Relation for image with IMAGE Model
-        if ($request->hasFile('file')) {
-            
-            $location_name = 'images/users/'; //change folder name according to the MODEL
-
-            $file = $request->file('file');
-            $name = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = env('PUBLIC_FILE_LOCATION') ? public_path('../'.$location_name ) : public_path($location_name );
-            $file->move($destinationPath, $name);
-            $location = $location_name . $name;
-
-            $image = new Image();
-            $image->url = $location;
-            $image->type = $file->getClientOriginalExtension();
-            $image->parentable_id = $user->id;     //change varibale according to the MODEL
-            $image->parentable_type = User::class; //change class name according to the MODEL
-            $image->save();
-            
+        if ($request->hasFile('file') && $user) {
+            $service = new ImageService();
+            $service->store($request, $user);          
         }
         
         $user->assignRole($request->role);
@@ -123,41 +111,16 @@ class UserController extends Controller
         $user = User::with('images')->find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-      
+        $user->save();
 
         if(isset($request->password)){
             $user->password = Hash::make($request->password);
         }
 
-        if ($request->hasFile('file')) {
-
-            $location_name = 'images/users/'; //change folder name according to the MODEL
-
-            $file = $request->file('file');
-            $name = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = env('PUBLIC_FILE_LOCATION') ? public_path('../'.$location_name) : public_path($location_name);
-            $file->move($destinationPath, $name);
-            $location = $location_name . $name;
-            
-            if ($user->image) {
-                
-                if (file_exists(public_path($user->image->url))) {
-                    unlink(public_path($user->image->url));
-                }
-                
-                $user->image->url = $location;
-                $user->image->save();
-            } else {
-                $image = new Image();
-                $image->url = $location;
-                $image->type = $file->getClientOriginalExtension();
-                $image->parentable_id = $user->id;
-                $image->parentable_type = User::class;
-                $image->save();
-            }
+        if ($request->hasFile('file') && $user) {
+            $service = new ImageService();
+            $service->store($request, $user);          
         }
-
-        $user->save();
 
         $user->assignRole($request->role);
 

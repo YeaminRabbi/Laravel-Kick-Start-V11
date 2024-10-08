@@ -37,6 +37,9 @@
 
     <link rel="stylesheet" href="{{ asset('adminpanel/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+
     <!-- Page CSS -->
     @yield('css')
 
@@ -122,6 +125,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- Axios cnd -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
 
     @yield('js')
 </body>

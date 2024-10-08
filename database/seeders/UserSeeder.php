@@ -15,19 +15,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+       if(!User::where('email', 'admin@gmail.com')->exists()){
+            // Reset cached roles and permissions
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
 
-        $admin = Role::firstOrCreate(['name' => 'admin']);
-
-        //creating a admin account
-        $AdminCount = new User;
-        $AdminCount->name = 'Admin';
-        $AdminCount->email = 'admin@gmail.com';
-        $AdminCount->password =  Hash::make('123');
-        $AdminCount->save();
-
-        $AdminCount->assignRole($admin);
+            $admin = Role::firstOrCreate(['name' => 'admin']);
+    
+            //creating a admin account
+            $AdminCount = new User;
+            $AdminCount->name = 'Admin';
+            $AdminCount->email = 'admin@gmail.com';
+            $AdminCount->password =  Hash::make('123');
+            $AdminCount->save();
+    
+            $AdminCount->assignRole($admin);
+       }
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -9,17 +8,15 @@ use Spatie\Permission\Models\Permission;
 
 class RolePermissionController extends Controller
 {
-    function index()
+    public function index()
     {
-        // return
         $roles = Role::with('permissions')->get();
         $permissions = Permission::all();
-
 
         return view('adminpanel.role.index', compact('roles','permissions'));
     }
 
-    function role_add(Request $request)
+    public function role_add(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -28,7 +25,7 @@ class RolePermissionController extends Controller
         return back()->with('success', 'Successfully Role has been created!');
     }
 
-    function role_delete($id)
+    public function role_delete($id)
     {
         $role = Role::findById($id);
         $role->delete();
@@ -36,18 +33,17 @@ class RolePermissionController extends Controller
 
     }
 
-    function get_role($id)
+    public function get_role($id)
     {
         $role = Role::findById($id);
 
         return response()->json([
             'data' => $role
-        
         ]);
 
     }
 
-    function role_update(Request $request)
+    public function role_update(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -61,7 +57,7 @@ class RolePermissionController extends Controller
     }
 
 
-    function permission_add(Request $request)
+    public function permission_add(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -71,7 +67,7 @@ class RolePermissionController extends Controller
         return back()->with('success', 'Successfully Permission has been created!');
     }
 
-    function permission_delete($id)
+    public function permission_delete($id)
     {
         // return
         $permission = Permission::findById($id);
@@ -80,7 +76,7 @@ class RolePermissionController extends Controller
 
     }
 
-    function get_permission($id)
+    public function get_permission($id)
     {
         $permission = Permission::findById($id);
 
@@ -91,10 +87,8 @@ class RolePermissionController extends Controller
 
     }
 
-    function permission_update(Request $request)
+    public function permission_update(Request $request)
     {
-
-        // return $request;
         $request->validate([
             'name' => 'required',
             'permission_id' => 'required'
@@ -107,9 +101,7 @@ class RolePermissionController extends Controller
     }
 
 
-
-
-    function role_permission_assign(Request $req)
+    public function role_permission_assign(Request $req)
     {
         $req->validate([
             'role_id' => 'required',
@@ -122,7 +114,7 @@ class RolePermissionController extends Controller
         return back()->with('success', 'Successfully Permission Assigned!');
     }
 
-    function role_permission_revoke($id)
+    public function role_permission_revoke($id)
     {
         $role = Role::findById($id);
         $role->syncPermissions([]);
@@ -132,7 +124,7 @@ class RolePermissionController extends Controller
     }
 
 
-    function fetch_permissions($id)
+    public function fetch_permissions($id)
     {
         $role = Role::findById($id);
         $permissions = $role->permissions;

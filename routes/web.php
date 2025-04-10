@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 
 
-Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+// Include the auth routes
+require __DIR__ . '/site.php';
+
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function() {
     

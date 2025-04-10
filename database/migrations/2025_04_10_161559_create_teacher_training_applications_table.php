@@ -54,7 +54,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             
             // Qualifications
-            $table->json('qualifications');
+            $table->json('qualifications')->nullable();
 
             // Skills Information
             $table->string('computer_skill')->nullable();
@@ -64,10 +64,10 @@ return new class extends Migration
             $table->boolean('agree_to_work')->default(false);
 
             // CPD Activities
-            $table->json('cpd_activity');
+            $table->json('cpd_activity')->nullable();
 
             // Publications
-            $table->json('publications');
+            $table->json('publications')->nullable();
 
             // Declaration
             $table->boolean('declaration_agree')->default(false);

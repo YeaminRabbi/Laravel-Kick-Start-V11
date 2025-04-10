@@ -8,7 +8,7 @@
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">Application for Teacher' Training Certificate Course (One Year)</h2>
 
                     @if(session('success'))
-                        <div class="bg-green-100 border-t-4 border-green-500 text-green-700 p-4 mb-6">
+                        <div class="bg-green-100 border-t-4 border-green-500 text-green-700 p-4 mb-6" id="success-message">
                             <p class="font-bold">{{ session('success') }}</p>
                         </div>
                     @endif
@@ -56,7 +56,7 @@
                             <div>
                                 <label for="designation" class="block text-sm font-medium text-gray-700 mb-1">Designation <span class="text-red-800">*</span> </label>
                                 <select id="designation" name="designation" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" disabled>Select Designation</option>
+                                    <option value="" selected disabled>Select Designation</option>
                                     <option value="senior_staff_nurse_staff_nurse" {{ old('designation') == 'senior_staff_nurse_staff_nurse' ? 'selected' : '' }}>Senior Staff Nurse/Staff Nurse</option>
                                     <option value="nursing_supervisor" {{ old('designation') == 'nursing_supervisor' ? 'selected' : '' }}>Nursing Supervisor</option>
                                     <option value="nursing_instructor_instructor" {{ old('designation') == 'nursing_instructor_instructor' ? 'selected' : '' }}>Nursing Instructor/Instructor</option>
@@ -110,7 +110,7 @@
                             <div>
                                 <label for="religion" class="block text-sm font-medium text-gray-700 mb-1">Religion <span class="text-red-800">*</span></label>
                                 <select id="religion" name="religion" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" disabled>Select Religion</option>
+                                    <option value="" selected disabled>Select Religion</option>
                                     <option value="islam" {{ old('religion') == 'islam' ? 'selected' : '' }}>Islam</option>
                                     <option value="hindu" {{ old('religion') == 'hindu' ? 'selected' : '' }}>Hindu</option>
                                     <option value="christian" {{ old('religion') == 'christian' ? 'selected' : '' }}>Christian</option>
@@ -133,53 +133,78 @@
                         </div>
 
                         
-                        <!-- Employment Information -->
-                        <div class="mt-8">
+                         <!-- Employment Information -->
+                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Employment Information</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="workplace" class="block text-sm font-medium text-gray-700 mb-1">Workplace</label>
-                                    <input type="text" id="workplace" name="workplace" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="workplace" class="block text-sm font-medium text-gray-700 mb-1">Workplace <span class="text-red-800">*</span></label>
+                                    <input type="text" id="workplace" name="workplace" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('workplace') }}" required>
+                                    @error('workplace')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
-                                    <label for="first_joining_date" class="block text-sm font-medium text-gray-700 mb-1">Date of 1st Joining in Govt. Job</label>
-                                    <input type="date" id="first_joining_date" name="first_joining_date" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="first_joining_date" class="block text-sm font-medium text-gray-700 mb-1">Date of 1st Joining in Govt. Job <span class="text-red-800">*</span></label>
+                                    <input type="date" id="first_joining_date" name="first_joining_date" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('first_joining_date') }}" required>
+                                    @error('first_joining_date')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
-                                    <label for="service_length" class="block text-sm font-medium text-gray-700 mb-1">Service Length (Years)</label>
-                                    <input type="number" id="service_length" name="service_length" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="service_length" class="block text-sm font-medium text-gray-700 mb-1">Service Length (Years) <span class="text-red-800">*</span></label>
+                                    <input type="number" id="service_length" name="service_length" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('service_length') }}" required>
+                                    @error('service_length')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
-                                    <label for="clinical_experience" class="block text-sm font-medium text-gray-700 mb-1">Clinical Experience (Years)</label>
-                                    <input type="number" id="clinical_experience" name="clinical_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="clinical_experience" class="block text-sm font-medium text-gray-700 mb-1">Clinical Experience (Years) <span class="text-red-800">*</span></label>
+                                    <input type="number" id="clinical_experience" name="clinical_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('clinical_experience') }}" required>
+                                    @error('clinical_experience')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
                                     <label for="management_experience" class="block text-sm font-medium text-gray-700 mb-1">Management Experience (Years, if any)</label>
-                                    <input type="number" id="management_experience" name="management_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <input type="number" id="management_experience" name="management_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('management_experience') }}">
+                                    @error('management_experience')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
                                     <label for="teaching_experience" class="block text-sm font-medium text-gray-700 mb-1">Teaching Experience (Years, if any)</label>
-                                    <input type="number" id="teaching_experience" name="teaching_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <input type="number" id="teaching_experience" name="teaching_experience" min="0" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('teaching_experience') }}">
+                                    @error('teaching_experience')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
-                                    <label for="bnmc_registration" class="block text-sm font-medium text-gray-700 mb-1">BNMC Registration Number</label>
-                                    <input type="text" id="bnmc_registration" name="bnmc_registration" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="bnmc_registration" class="block text-sm font-medium text-gray-700 mb-1">BNMC Registration Number <span class="text-red-800">*</span></label>
+                                    <input type="text" id="bnmc_registration" name="bnmc_registration" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bnmc_registration') }}" required>
+                                    @error('bnmc_registration')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
+                        
                                 <div>
-                                    <label for="bnmc_expiry" class="block text-sm font-medium text-gray-700 mb-1">BNMC Registration Expiry Date</label>
-                                    <input type="date" id="bnmc_expiry" name="bnmc_expiry" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="bnmc_expiry" class="block text-sm font-medium text-gray-700 mb-1">BNMC Registration Expiry Date <span class="text-red-800">*</span></label>
+                                    <input type="date" id="bnmc_expiry" name="bnmc_expiry" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bnmc_expiry') }}" required>
+                                    @error('bnmc_expiry')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-
                         
+
+                       
                         <!-- Address Information -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Address Information</h3>
@@ -189,68 +214,98 @@
                                     <h4 class="text-md font-medium text-gray-800 mb-2">Present Address</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label for="present_vill" class="block text-sm font-medium text-gray-700 mb-1">Vill/Street</label>
-                                            <input type="text" id="present_vill" name="present_vill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="present_vill" class="block text-sm font-medium text-gray-700 mb-1">Vill/Street <span class="text-red-800">*</span></label>
+                                            <input type="text" id="present_vill" name="present_vill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_vill') }}" required>
+                                            @error('present_vill')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="present_post" class="block text-sm font-medium text-gray-700 mb-1">Post</label>
-                                            <input type="text" id="present_post" name="present_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="present_post" class="block text-sm font-medium text-gray-700 mb-1">Post <span class="text-red-800">*</span></label>
+                                            <input type="text" id="present_post" name="present_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_post') }}" required>
+                                            @error('present_post')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="present_upazilla" class="block text-sm font-medium text-gray-700 mb-1">Upazilla/Thana</label>
-                                            <input type="text" id="present_upazilla" name="present_upazilla" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="present_upazilla" class="block text-sm font-medium text-gray-700 mb-1">Upazilla/Thana <span class="text-red-800">*</span></label>
+                                            <input type="text" id="present_upazilla" name="present_upazilla" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_upazilla') }}" required>
+                                            @error('present_upazilla')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="present_district" class="block text-sm font-medium text-gray-700 mb-1">District</label>
-                                            <input type="text" id="present_district" name="present_district" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="present_district" class="block text-sm font-medium text-gray-700 mb-1">District <span class="text-red-800">*</span></label>
+                                            <input type="text" id="present_district" name="present_district" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_district') }}" required>
+                                            @error('present_district')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-
+                        
                                 <!-- Permanent Address -->
                                 <div>
                                     <h4 class="text-md font-medium text-gray-800 mb-2">Permanent Address</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label for="permanent_vill" class="block text-sm font-medium text-gray-700 mb-1">Vill/Street</label>
-                                            <input type="text" id="permanent_vill" name="permanent_vill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="permanent_vill" class="block text-sm font-medium text-gray-700 mb-1">Vill/Street <span class="text-red-800">*</span></label>
+                                            <input type="text" id="permanent_vill" name="permanent_vill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_vill') }}" required>
+                                            @error('permanent_vill')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="permanent_post" class="block text-sm font-medium text-gray-700 mb-1">Post</label>
-                                            <input type="text" id="permanent_post" name="permanent_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="permanent_post" class="block text-sm font-medium text-gray-700 mb-1">Post <span class="text-red-800">*</span></label>
+                                            <input type="text" id="permanent_post" name="permanent_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_post') }}" required>
+                                            @error('permanent_post')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="permanent_upazilla" class="block text-sm font-medium text-gray-700 mb-1">Upazilla/Thana</label>
-                                            <input type="text" id="permanent_upazilla" name="permanent_upazilla" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="permanent_upazilla" class="block text-sm font-medium text-gray-700 mb-1">Upazilla/Thana <span class="text-red-800">*</span></label>
+                                            <input type="text" id="permanent_upazilla" name="permanent_upazilla" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_upazilla') }}" required>
+                                            @error('permanent_upazilla')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div>
-                                            <label for="permanent_district" class="block text-sm font-medium text-gray-700 mb-1">District</label>
-                                            <input type="text" id="permanent_district" name="permanent_district" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                            <label for="permanent_district" class="block text-sm font-medium text-gray-700 mb-1">District <span class="text-red-800">*</span></label>
+                                            <input type="text" id="permanent_district" name="permanent_district" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_district') }}" required>
+                                            @error('permanent_district')
+                                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         
+
+                         
                         <!-- Contact Information -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Contact Information</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                    <input type="email" id="email" name="email"
-                                        class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-800">*</span></label>
+                                    <input type="email" id="email" name="email" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div>
-                                    <label for="mobile" class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
-                                    <input type="text" id="mobile" name="mobile"
-                                        class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                    <label for="mobile" class="block text-sm font-medium text-gray-700 mb-1">Mobile Number <span class="text-red-800">*</span></label>
+                                    <input type="tel" id="mobile" name="mobile" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mobile') }}" required>
+                                    @error('mobile')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-
                         
+
+                        {{--
                         <!-- Academic Qualifications -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Academic Qualifications</h3>
@@ -422,9 +477,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> --}}
                         
-                        <!-- Skills Information -->
+                        {{-- <!-- Skills Information -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Skills Information</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -559,7 +614,7 @@
                                     file:bg-blue-50 file:text-blue-700
                                     hover:file:bg-blue-100">
                             </div>
-                        </div>
+                        </div> --}}
                         
                         <!-- Submit Button -->
                         <div class="mt-8 flex justify-end">
@@ -572,4 +627,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        setTimeout(function() {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
 @endsection

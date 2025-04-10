@@ -4,10 +4,233 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TeacherTrainingApplication;
 
 class HomeController extends Controller
 {
     public function index(){
         return view('site.home.index');
     }
+
+    // public function store(Request $request){
+
+       
+    //     // Validate the request data
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'father_name' => 'required|email|max:255',
+    //         'mother_name' => 'required|string|max:255',
+    //         'designation' => 'required|string|max:255|in:district_public_health_nurse,nursing_superintendent,deputy_nursing_superintendent,lecturer,nursing_instructor_instructor,nursing_supervisor,senior_staff_nurse_staff_nurse',
+    //         'unique_id' => 'required|string|max:255',
+    //         'date_of_birth' => 'required',
+    //         'gender' => 'required|string|max:255|in:male,female,other',
+    //         'religion' => 'required|string|max:255|in:islam,hindu,buddhist,christian,other',
+    //         'nid_number' => 'required|string|max:255',
+    //     ]);
+
+    //     // Store the application data in the database
+    //     TeacherTrainingApplication::create([
+    //         'name' => $request->name,
+    //     ]);
+    //     return back()->with('success', 'Application submitted successfully!');
+    // }
+
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'father_name' => 'required|string|max:255',  // Changed to string validation, as it should be a name
+            'mother_name' => 'required|string|max:255',  // Changed to string validation
+            'designation' => 'required|string|max:255|in:district_public_health_nurse,nursing_superintendent,deputy_nursing_superintendent,lecturer,nursing_instructor_instructor,nursing_supervisor,senior_staff_nurse_staff_nurse',
+            'unique_id' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',  // Added date validation
+            'gender' => 'required|string|max:255|in:male,female,other',
+            'religion' => 'required|string|max:255|in:islam,hindu,buddhist,christian,other',
+            'nid_number' => 'required|string|max:255',
+            'workplace' => 'required|string|max:255',
+            'first_joining_date' => 'required|date',
+            'service_length' => 'required|numeric',
+            'clinical_experience' => 'required|numeric',
+            'management_experience' => 'required|numeric',
+            'teaching_experience' => 'required|numeric',
+            'bnmc_registration' => 'required|string|max:255',
+            'bnmc_expiry' => 'required|date',
+            'present_vill' => 'required|string|max:255',
+            'present_post' => 'required|string|max:255',
+            'present_upazilla' => 'required|string|max:255',
+            'present_district' => 'required|string|max:255',
+            'permanent_vill' => 'required|string|max:255',
+            'permanent_post' => 'required|string|max:255',
+            'permanent_upazilla' => 'required|string|max:255',
+            'permanent_district' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'mobile' => 'required|string|max:255',
+            'ssc_board' => 'required|string|max:255',
+            'ssc_grade' => 'required|string|max:255',
+            'ssc_group' => 'required|string|max:255',
+            'ssc_institution' => 'required|string|max:255',
+            'hsc_year' => 'required|numeric',
+            'hsc_board' => 'required|string|max:255',
+            'hsc_grade' => 'required|string|max:255',
+            'hsc_group' => 'required|string|max:255',
+            'hsc_institution' => 'required|string|max:255',
+            'diploma_nursing_year' => 'required|numeric',
+            'diploma_nursing_board' => 'required|string|max:255',
+            'diploma_nursing_grade' => 'required|string|max:255',
+            'diploma_nursing_group' => 'required|string|max:255',
+            'diploma_nursing_institution' => 'required|string|max:255',
+            'diploma_midwifery_year' => 'required|numeric',
+            'diploma_midwifery_board' => 'required|string|max:255',
+            'diploma_midwifery_grade' => 'required|string|max:255',
+            'diploma_midwifery_group' => 'required|string|max:255',
+            'diploma_midwifery_institution' => 'required|string|max:255',
+            'bsc_nursing_year' => 'required|numeric',
+            'bsc_nursing_board' => 'required|string|max:255',
+            'bsc_nursing_grade' => 'required|string|max:255',
+            'bsc_nursing_group' => 'required|string|max:255',
+            'bsc_nursing_institution' => 'required|string|max:255',
+            'post_bsc_year' => 'required|numeric',
+            'post_bsc_board' => 'required|string|max:255',
+            'post_bsc_grade' => 'required|string|max:255',
+            'post_bsc_group' => 'required|string|max:255',
+            'post_bsc_institution' => 'required|string|max:255',
+            'msc_nursing_year' => 'required|numeric',
+            'msc_nursing_board' => 'required|string|max:255',
+            'msc_nursing_grade' => 'required|string|max:255',
+            'msc_nursing_group' => 'required|string|max:255',
+            'msc_nursing_institution' => 'required|string|max:255',
+            'mph_year' => 'required|numeric',
+            'mph_board' => 'required|string|max:255',
+            'mph_grade' => 'required|string|max:255',
+            'mph_group' => 'required|string|max:255',
+            'mph_institution' => 'required|string|max:255',
+            'computer_skill' => 'required|string|max:255',
+            'english_skill' => 'required|string|max:255',
+            'agree_to_work' => 'required|in:yes,no',
+            'cpd_name_1' => 'required|string|max:255',
+            'cpd_date_1' => 'required|date',
+            'cpd_duration_1' => 'required|string|max:255',
+            'cpd_authority_1' => 'required|string|max:255',
+            'cpd_name_2' => 'required|string|max:255',
+            'cpd_date_2' => 'required|date',
+            'cpd_duration_2' => 'required|string|max:255',
+            'cpd_authority_2' => 'required|string|max:255',
+            'cpd_name_3' => 'required|string|max:255',
+            'cpd_date_3' => 'required|date',
+            'cpd_duration_3' => 'required|string|max:255',
+            'cpd_authority_3' => 'required|string|max:255',
+            'pub_title_1' => 'required|string|max:255',
+            'pub_date_1' => 'required|date',
+            'pub_journal_1' => 'required|string|max:255',
+            'pub_link_1' => 'required|url',
+            'pub_title_2' => 'required|string|max:255',
+            'pub_date_2' => 'required|date',
+            'pub_journal_2' => 'required|string|max:255',
+            'pub_link_2' => 'required|url',
+            'declaration_agree' => 'required|in:yes,no',
+        ]);
+
+        // Store the application data in the database
+        TeacherTrainingApplication::create($request->all());
+
+        // Redirect back with a success message
+        return back()->with('success', 'Application submitted successfully!');
+    }
+
+
+
+    // {
+    //     "_token": "HRKlUHx4RSjebFyRxHiAToCRxycwJcz1VJDyAPXq",
+    //     "name": "Cara Odom",
+    //     "father_name": "Lacey Francis",
+    //     "mother_name": "Jason Odom",
+    //     "designation": "Lecturer",
+    //     "unique_id": "Ut quisquam excepteu",
+    //     "date_of_birth": "2003-01-01",
+    //     "gender": "Male",
+    //     "religion": "Hindu",
+    //     "nid_number": "468",
+    //     "workplace": "Exercitation consequ",
+    //     "first_joining_date": "2009-07-26",
+    //     "service_length": "1979",
+    //     "clinical_experience": "2004",
+    //     "management_experience": "2000",
+    //     "teaching_experience": "2001",
+    //     "bnmc_registration": "289",
+    //     "bnmc_expiry": "2007-10-23",
+    //     "present_vill": "Commodi fugiat aliqu",
+    //     "present_post": "Aliquip fugiat dolo",
+    //     "present_upazilla": "Quaerat quos volupta",
+    //     "present_district": "Est voluptatibus nob",
+    //     "permanent_vill": "Omnis quos eos sint",
+    //     "permanent_post": "Enim id ad quo qui",
+    //     "permanent_upazilla": "Deserunt officiis ex",
+    //     "permanent_district": "Ad facere et consect",
+    //     "email": "pupyduvicy@mailinator.com",
+    //     "mobile": "589",
+    //     "ssc_board": "Ut rerum labore quia",
+    //     "ssc_grade": "Sint fuga Voluptat",
+    //     "ssc_group": "Culpa sint quam earu",
+    //     "ssc_institution": "Voluptate non maxime",
+    //     "hsc_year": "1972",
+    //     "hsc_board": "Nisi facere aute in",
+    //     "hsc_grade": "A consequatur aliqu",
+    //     "hsc_group": "Cillum dignissimos v",
+    //     "hsc_institution": "Ex natus rem qui pos",
+    //     "diploma_nursing_year": "1993",
+    //     "diploma_nursing_board": "Sunt aut velit et p",
+    //     "diploma_nursing_grade": "Magnam recusandae Q",
+    //     "diploma_nursing_group": "Expedita error aute",
+    //     "diploma_nursing_institution": "Veritatis delectus",
+    //     "diploma_midwifery_year": "2013",
+    //     "diploma_midwifery_board": "Ipsa velit nostrum",
+    //     "diploma_midwifery_grade": "Cupiditate earum off",
+    //     "diploma_midwifery_group": "Itaque maxime exerci",
+    //     "diploma_midwifery_institution": "Saepe quo dolores ci",
+    //     "bsc_nursing_year": "2005",
+    //     "bsc_nursing_board": "Illum labore illum",
+    //     "bsc_nursing_grade": "Reiciendis voluptate",
+    //     "bsc_nursing_group": "Culpa omnis rem quia",
+    //     "bsc_nursing_institution": "Ullamco vero enim al",
+    //     "post_bsc_year": "2011",
+    //     "post_bsc_board": "Culpa neque tempore",
+    //     "post_bsc_grade": "Excepturi soluta a u",
+    //     "post_bsc_group": "Possimus vel archit",
+    //     "post_bsc_institution": "Nostrum fugiat volu",
+    //     "msc_nursing_year": "1998",
+    //     "msc_nursing_board": "Sapiente dolore ulla",
+    //     "msc_nursing_grade": "Porro sed facere sin",
+    //     "msc_nursing_group": "Aliqua Sit quis des",
+    //     "msc_nursing_institution": "Aut ut alias sint e",
+    //     "mph_year": "1994",
+    //     "mph_board": "Omnis quis illum lo",
+    //     "mph_grade": "Architecto magnam oc",
+    //     "mph_group": "A et nisi praesentiu",
+    //     "mph_institution": "Elit cupidatat nece",
+    //     "computer_skill": "Moderate",
+    //     "english_skill": "Average",
+    //     "agree_to_work": "Yes",
+    //     "cpd_name_1": "Basil Cannon",
+    //     "cpd_date_1": "2006-07-08",
+    //     "cpd_duration_1": "Tempora minima commo",
+    //     "cpd_authority_1": "Est temporibus in qu",
+    //     "cpd_name_2": "Inga Vega",
+    //     "cpd_date_2": "1993-10-11",
+    //     "cpd_duration_2": "Ut aut doloribus sus",
+    //     "cpd_authority_2": "Ipsa quisquam recus",
+    //     "cpd_name_3": "Abigail Sparks",
+    //     "cpd_date_3": "2010-10-06",
+    //     "cpd_duration_3": "Ut totam commodi con",
+    //     "cpd_authority_3": "Voluptate qui possim",
+    //     "pub_title_1": "Cum rerum cumque vel",
+    //     "pub_date_1": "2021-09-11",
+    //     "pub_journal_1": "Labore molestias aut",
+    //     "pub_link_1": "https://www.qiziwawygabyrov.com",
+    //     "pub_title_2": "Dolor ea dolorem mag",
+    //     "pub_date_2": "2011-10-12",
+    //     "pub_journal_2": "Harum esse non ut te",
+    //     "pub_link_2": "https://www.nanehatemituxug.com",
+    //     "declaration_agree": "Yes"
+    //     }
 }

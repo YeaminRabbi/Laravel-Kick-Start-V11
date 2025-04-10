@@ -12,7 +12,7 @@
 <body class="bg-gray-100 text-gray-900 font-sans">
 
     <!-- Header Section -->
-    <header class="bg-blue-600 text-white p-4 shadow-md">
+    <header class="bg-gray-800 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-semibold">Pronurse</h1>
         </div>
@@ -26,7 +26,7 @@
     <!-- Footer Section -->
     <footer class="bg-gray-800 text-white p-4">
         <div class="container mx-auto text-center">
-            <p>&copy; 2023 Pronurse. All rights reserved.</p>
+            <p>&copy; {{date('Y')}} Pronurse. All rights reserved.</p>
         </div>
     </footer>
 

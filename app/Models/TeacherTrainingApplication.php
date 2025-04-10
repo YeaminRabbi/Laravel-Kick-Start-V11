@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class TeacherTrainingApplication extends Model
 {
@@ -33,4 +34,27 @@ class TeacherTrainingApplication extends Model
         'cpd_activity' => 'array',
         'publications' => 'array',
     ];
+
+    public function getPhotoUrlAttribute()
+    {
+        // Check if the photo exists
+        if ($this->photo && Storage::disk('public')->exists($this->photo)) {
+            return Storage::disk('public')->url($this->photo);
+        }
+
+        // If the photo doesn't exist, return a default image URL (optional)
+        return 'https://placehold.co/600x400'; // Adjust this to your default photo path
+    }
+
+    public function getSignatureUrlAttribute()
+    {
+        // Check if the signature exists
+        if ($this->signature && Storage::disk('public')->exists($this->signature)) {
+            return Storage::disk('public')->url($this->signature);
+        }
+
+        // If the signature doesn't exist, return a default image URL (optional)
+        return 'https://placehold.co/600x400'; // Adjust this to your default signature path
+    }
+
 }

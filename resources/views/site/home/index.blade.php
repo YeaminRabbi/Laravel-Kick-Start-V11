@@ -80,7 +80,7 @@
                             <div>
                                 <label for="designation" class="block text-sm font-medium text-gray-700 mb-1">Designation <span class="text-red-800">*</span> </label>
                                 <select id="designation" name="designation" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" disabled>Select Designation</option>
+                                    <option value="" selected disabled>Select Designation</option>
                                     <option value="senior_staff_nurse_staff_nurse" {{ old('designation') == 'senior_staff_nurse_staff_nurse' ? 'selected' : '' }}>Senior Staff Nurse/Staff Nurse</option>
                                     <option value="nursing_supervisor" {{ old('designation') == 'nursing_supervisor' ? 'selected' : '' }}>Nursing Supervisor</option>
                                     <option value="nursing_instructor_instructor" {{ old('designation') == 'nursing_instructor_instructor' ? 'selected' : '' }}>Nursing Instructor/Instructor</option>
@@ -134,7 +134,7 @@
                             <div>
                                 <label for="religion" class="block text-sm font-medium text-gray-700 mb-1">Religion <span class="text-red-800">*</span></label>
                                 <select id="religion" name="religion" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" disabled>Select Religion</option>
+                                    <option value="" selected disabled>Select Religion</option>
                                     <option value="islam" {{ old('religion') == 'islam' ? 'selected' : '' }}>Islam</option>
                                     <option value="hindu" {{ old('religion') == 'hindu' ? 'selected' : '' }}>Hindu</option>
                                     <option value="christian" {{ old('religion') == 'christian' ? 'selected' : '' }}>Christian</option>
@@ -627,7 +627,7 @@
                                 <div>
                                     <label for="computer_skill" class="block text-sm font-medium text-gray-700 mb-1">Computer Skill</label>
                                     <select id="computer_skill" name="computer_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                        <option value="" disabled>Select Skill Level</option>
+                                        <option value="" selected disabled>Select Skill Level</option>
                                         <option value="beginner" {{ old('computer_skill') == 'beginner' ? 'selected' : '' }}>Beginner</option>
                                         <option value="moderate" {{ old('computer_skill') == 'moderate' ? 'selected' : '' }}>Moderate</option>
                                         <option value="advanced" {{ old('computer_skill') == 'advanced' ? 'selected' : '' }}>Advanced</option>
@@ -640,7 +640,7 @@
                                 <div>
                                     <label for="english_skill" class="block text-sm font-medium text-gray-700 mb-1">English Language Skill</label>
                                     <select id="english_skill" name="english_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                        <option value="" disabled>Select Skill Level</option>
+                                        <option value="" selected disabled>Select Skill Level</option>
                                         <option value="average" {{ old('english_skill') == 'average' ? 'selected' : '' }}>Average</option>
                                         <option valug="good" {{ old('english_skill') == 'good' ? 'selected' : '' }}>Good</option>
                                         <option value="excellent" {{ old('english_skill') == 'excellent' ? 'selected' : '' }}>Excellent</option>
@@ -660,7 +660,7 @@
                                 <div>
                                     <label for="agree_to_work" class="block text-sm font-medium text-gray-700 mb-1">Agree to work anywhere in Bangladesh</label>
                                     <select id="agree_to_work" name="agree_to_work" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                        <option value="" disabled>Select an option</option>
+                                        <option value="" selected disabled>Select an option</option>
                                         <option value="yes" {{ old('agree_to_work') == 'yes' ? 'selected' : '' }}>Yes</option>
                                         <option value="no" {{ old('agree_to_work') == 'Nn' ? 'selected' : '' }}>No</option>
                                     </select>

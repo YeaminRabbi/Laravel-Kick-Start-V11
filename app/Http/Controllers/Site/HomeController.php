@@ -97,8 +97,8 @@ class HomeController extends Controller
             'mph_institution' => 'nullable|string|max:255',
 
 
-            'computer_skill' => 'required|string|max:255|in:advanced,moderate,beginner',
-            'english_skill' => 'required|string|max:255|in:excellent,good,average,poor',
+            'computer_skill' => 'required|string|in:advanced,moderate,beginner',
+            'english_skill' => 'required|string|in:excellent,good,average,poor',
             'agree_to_work' => 'required|in:yes,no',
 
             'cpd_name_1' => 'nullable|string|max:255',

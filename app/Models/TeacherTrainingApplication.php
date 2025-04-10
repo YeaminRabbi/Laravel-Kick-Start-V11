@@ -18,12 +18,12 @@ class TeacherTrainingApplication extends Model
         'permanent_vill', 'permanent_post', 'permanent_upazilla', 'permanent_district',
         'email', 'mobile',
         'qualifications',
-        'computer_skill', 'language_skill','agree_to_work','cpd_activity', 'publications',
-        'declaration_agree', 'signature'
+        'computer_skill', 'english_skill','agree_to_work',
+        'cpd_activity',
+        'publications',
+        'declaration_agree', 
+        'signature'
     ];
-
-
-  
 
     protected $casts = [
         'date_of_birth' => 'date',

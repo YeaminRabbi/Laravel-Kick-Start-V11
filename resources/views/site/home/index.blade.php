@@ -19,14 +19,38 @@
                         <!-- Photo Upload -->
                         <div class="mb-6">
                             <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Passport Size Photo <span class="text-red-800">*</span></label>
-                            <input type="file" id="photo" name="photo" accept="image/*" class="block w-full text-sm text-gray-500
-                                file:mr-4 file:py-2 file:px-4
-                                file:rounded-md file:border-0
-                                file:text-sm file:font-semibold
-                                file:bg-blue-50 file:text-blue-700
-                                hover:file:bg-blue-100"
-                                >
+                            <input 
+                                type="file" 
+                                id="photo" 
+                                name="photo" 
+                                accept="image/*"
+                                class="block w-full text-sm text-gray-500
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-md file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-blue-50 file:text-blue-700
+                                    hover:file:bg-blue-100"
+                                onchange="previewPhoto(event)"
+                            >
+                            
+                            <span class="text-red-800">Image size must be (300x400px)</span>
+                        
+                            <!-- Preview image -->
+                            <div class="mt-2">
+                                <img id="photoPreview" class="h-24 border border-gray-300 rounded-md" style="display: none;" />
+                            </div>
+                        
+                            @error('photo')
+                                <div class="mt-2 text-yellow-600 flex items-center">
+                                    <!-- Warning Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12l-9-9-9 9h18z"/>
+                                    </svg>
+                                    <span class="text-md text-red-800">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </div>
+                        
                         
                         <!-- Personal Information -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -56,7 +80,7 @@
                             <div>
                                 <label for="designation" class="block text-sm font-medium text-gray-700 mb-1">Designation <span class="text-red-800">*</span> </label>
                                 <select id="designation" name="designation" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" selected disabled>Select Designation</option>
+                                    <option value="" disabled>Select Designation</option>
                                     <option value="senior_staff_nurse_staff_nurse" {{ old('designation') == 'senior_staff_nurse_staff_nurse' ? 'selected' : '' }}>Senior Staff Nurse/Staff Nurse</option>
                                     <option value="nursing_supervisor" {{ old('designation') == 'nursing_supervisor' ? 'selected' : '' }}>Nursing Supervisor</option>
                                     <option value="nursing_instructor_instructor" {{ old('designation') == 'nursing_instructor_instructor' ? 'selected' : '' }}>Nursing Instructor/Instructor</option>
@@ -110,7 +134,7 @@
                             <div>
                                 <label for="religion" class="block text-sm font-medium text-gray-700 mb-1">Religion <span class="text-red-800">*</span></label>
                                 <select id="religion" name="religion" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
-                                    <option value="" selected disabled>Select Religion</option>
+                                    <option value="" disabled>Select Religion</option>
                                     <option value="islam" {{ old('religion') == 'islam' ? 'selected' : '' }}>Islam</option>
                                     <option value="hindu" {{ old('religion') == 'hindu' ? 'selected' : '' }}>Hindu</option>
                                     <option value="christian" {{ old('religion') == 'christian' ? 'selected' : '' }}>Christian</option>
@@ -222,7 +246,7 @@
                                         </div>
                                         <div>
                                             <label for="present_post" class="block text-sm font-medium text-gray-700 mb-1">Post <span class="text-red-800">*</span></label>
-                                            <input type="text" id="present_post" name="present_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_post') }}" required>
+                                            <input type="number" id="present_post" name="present_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('present_post') }}" required>
                                             @error('present_post')
                                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                                             @enderror
@@ -257,7 +281,7 @@
                                         </div>
                                         <div>
                                             <label for="permanent_post" class="block text-sm font-medium text-gray-700 mb-1">Post <span class="text-red-800">*</span></label>
-                                            <input type="text" id="permanent_post" name="permanent_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_post') }}" required>
+                                            <input type="number" id="permanent_post" name="permanent_post" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_post') }}" required>
                                             @error('permanent_post')
                                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                                             @enderror
@@ -304,8 +328,6 @@
                             </div>
                         </div>
                         
-
-                        {{--
                         <!-- Academic Qualifications -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Academic Qualifications</h3>
@@ -325,204 +347,333 @@
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">SSC/Equivalent</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="ssc_board"  min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                                <input type="number" name="ssc_year"  min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('ssc_year') }}"  required>
+                                                @error('ssc_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="ssc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                                <input type="text" name="ssc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_district') }}"  required>
+                                                @error('ssc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="ssc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                                <input type="text" name="ssc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_district') }}"  required>
+                                                @error('ssc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="ssc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                                <input type="text" name="ssc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_district') }}"  required>
+                                                @error('ssc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="ssc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                                <input type="text" name="ssc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('permanent_district') }}"  required>
+                                                @error('ssc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">HSC/Equivalent (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="hsc_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="hsc_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('hsc_year') }}">
+                                                @error('hsc_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="hsc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="hsc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('hsc_board') }}">
+                                                @error('hsc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="hsc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="hsc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('hsc_grade') }}">
+                                                @error('hsc_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="hsc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="hsc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('hsc_group') }}">
+                                                @error('hsc_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="hsc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="hsc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('hsc_institution') }}">
+                                                @error('hsc_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Diploma in Nursing Science & Midwifery (3 Years) (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="diploma_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="diploma_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_nursing_year') }}">
+                                                @error('diploma_nursing_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_nursing_board') }}">
+                                                @error('diploma_nursing_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_nursing_grade') }}">
+                                                @error('diploma_nursing_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_nursing_group') }}">
+                                                @error('diploma_nursing_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_nursing_institution') }}">
+                                                @error('diploma_nursing_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Diploma in Nursing & Midwifery/Orthopaedic/Other (4 Years) (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="diploma_midwifery_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="diploma_midwifery_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_midwifery_year') }}">
+                                                @error('diploma_midwifery_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_midwifery_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_midwifery_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_midwifery_board') }}">
+                                                @error('diploma_midwifery_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_midwifery_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_midwifery_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_midwifery_grade') }}">
+                                                @error('diploma_midwifery_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_midwifery_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_midwifery_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_midwifery_group') }}">
+                                                @error('diploma_midwifery_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="diploma_midwifery_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="diploma_midwifery_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('diploma_midwifery_institution') }}">
+                                                @error('diploma_midwifery_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">BSc in Nursing (4 Years) (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="bsc_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="bsc_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bsc_nursing_year') }}">
+                                                @error('bsc_nursing_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="bsc_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="bsc_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bsc_nursing_board') }}">
+                                                @error('bsc_nursing_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="bsc_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="bsc_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bsc_nursing_grade') }}">
+                                                @error('bsc_nursing_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="bsc_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="bsc_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bsc_nursing_group') }}">
+                                                @error('bsc_nursing_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="bsc_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="bsc_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('bsc_nursing_institution') }}">
+                                                @error('bsc_nursing_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Post Basic BSc in Nursing/PHN (2 Years) (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="post_bsc_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="post_bsc_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('post_bsc_year') }}">
+                                                @error('post_bsc_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="post_bsc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="post_bsc_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('post_bsc_board') }}">
+                                                @error('post_bsc_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="post_bsc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="post_bsc_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('post_bsc_grade') }}">
+                                                @error('post_bsc_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="post_bsc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="post_bsc_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('post_bsc_group') }}">
+                                                @error('post_bsc_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="post_bsc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="post_bsc_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('post_bsc_institution') }}">
+                                                @error('post_bsc_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MSc in Nursing (if applicable)</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="msc_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="msc_nursing_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('msc_nursing_year') }}">
+                                                @error('msc_nursing_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="msc_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="msc_nursing_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('msc_nursing_board') }}">
+                                                @error('msc_nursing_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="msc_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out
-                                                <input type="text" name="msc_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="msc_nursing_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('msc_nursing_grade') }}">
+                                                @error('msc_nursing_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="msc_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="msc_nursing_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('msc_nursing_group') }}">
+                                                @error('msc_nursing_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="msc_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="msc_nursing_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('msc_nursing_institution') }}">
+                                                @error('msc_nursing_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                         
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MPH </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MPH</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="number" name="mph_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="number" name="mph_year" min="1900" max="2099" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mph_year') }}">
+                                                @error('mph_year')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="mph_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="mph_board" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mph_board') }}">
+                                                @error('mph_board')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="mph_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="mph_grade" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mph_grade') }}">
+                                                @error('mph_grade')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="mph_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="mph_group" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mph_group') }}">
+                                                @error('mph_group')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <input type="text" name="mph_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                <input type="text" name="mph_institution" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('mph_institution') }}">
+                                                @error('mph_institution')
+                                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                                @enderror
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div> --}}
+                        </div> 
                         
-                        {{-- <!-- Skills Information -->
-                        <div class="mt-8">
+                         <!-- Skills Information -->
+                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Skills Information</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="computer_skill" class="block text-sm font-medium text-gray-700 mb-1">Computer Skill</label>
-                                    <select id="computer_skill" name="computer_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
-                                        <option value="">Select Skill Level</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Moderate">Moderate</option>
-                                        <option value="Advanced">Advanced</option>
+                                    <select id="computer_skill" name="computer_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                        <option value="" disabled>Select Skill Level</option>
+                                        <option value="beginner" {{ old('computer_skill') == 'beginner' ? 'selected' : '' }}>Beginner</option>
+                                        <option value="moderate" {{ old('computer_skill') == 'moderate' ? 'selected' : '' }}>Moderate</option>
+                                        <option value="advanced" {{ old('computer_skill') == 'advanced' ? 'selected' : '' }}>Advanced</option>
                                     </select>
+                                    @error('computer_skill')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 
                                 <div>
                                     <label for="english_skill" class="block text-sm font-medium text-gray-700 mb-1">English Language Skill</label>
-                                    <select id="english_skill" name="english_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
-                                        <option value="">Select Skill Level</option>
-                                        <option value="Average">Average</option>
-                                        <option value="Good">Good</option>
-                                        <option value="Excellent">Excellent</option>
+                                    <select id="english_skill" name="english_skill" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                        <option value="" disabled>Select Skill Level</option>
+                                        <option value="average" {{ old('english_skill') == 'average' ? 'selected' : '' }}>Average</option>
+                                        <option valug="good" {{ old('english_skill') == 'good' ? 'selected' : '' }}>Good</option>
+                                        <option value="excellent" {{ old('english_skill') == 'excellent' ? 'selected' : '' }}>Excellent</option>
                                     </select>
+                                    @error('english_skill')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
-                        </div>  
-                        
+                        </div>
+
+                           
                         <!-- Agree to Work -->
                         <div class="mt-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Agreement</h3>
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
                                     <label for="agree_to_work" class="block text-sm font-medium text-gray-700 mb-1">Agree to work anywhere in Bangladesh</label>
-                                    <select id="agree_to_work" name="agree_to_work" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
-                                        <option value="">Select an option</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                    <select id="agree_to_work" name="agree_to_work" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" required>
+                                        <option value="" disabled>Select an option</option>
+                                        <option value="yes" {{ old('agree_to_work') == 'yes' ? 'selected' : '' }}>Yes</option>
+                                        <option value="no" {{ old('agree_to_work') == 'Nn' ? 'selected' : '' }}>No</option>
                                     </select>
+                                    @error('agree_to_work')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        
+                      
                         <!-- CPD Activities -->
                         <div class="mt-8">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">CPD Activities (Last 5 years, most significant only)</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">CPD Activities (Last 5 years, most significant only) (if any)</h3>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
@@ -537,16 +688,28 @@
                                         @for ($i = 1; $i <= 3; $i++)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" name="cpd_name_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="text" name="cpd_name_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('cpd_name_' . $i) }}">
+                                                    @error('cpd_name_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="date" name="cpd_date_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="date" name="cpd_date_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('cpd_date_' . $i) }}">
+                                                    @error('cpd_date_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" name="cpd_duration_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" placeholder="e.g., 2 days, 40 hours">
+                                                    <input type="text" name="cpd_duration_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" placeholder="e.g., 2 days, 40 hours" value="{{ old('cpd_duration_' . $i) }}">
+                                                    @error('cpd_duration_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" name="cpd_authority_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="text" name="cpd_authority_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('cpd_authority_' . $i) }}">
+                                                    @error('cpd_authority_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                             </tr>
                                         @endfor
@@ -572,16 +735,28 @@
                                         @for ($i = 1; $i <= 2; $i++)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" name="pub_title_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="text" name="pub_title_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('pub_title_' . $i) }}">
+                                                    @error('pub_title_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="date" name="pub_date_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="date" name="pub_date_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('pub_date_' . $i) }}">
+                                                    @error('pub_date_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" name="pub_journal_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out">
+                                                    <input type="text" name="pub_journal_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" value="{{ old('pub_journal_' . $i) }}">
+                                                    @error('pub_journal_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="url" name="pub_link_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" placeholder="https://">
+                                                    <input type="url" name="pub_link_{{ $i }}" class="h-10 px-4 block w-full rounded border border-gray-300 ring-1 ring-inset ring-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow-sm transition duration-300 ease-in-out" placeholder="https://" value="{{ old('pub_link_' . $i) }}">
+                                                    @error('pub_link_' . $i)
+                                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </td>
                                             </tr>
                                         @endfor
@@ -600,21 +775,44 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center">
-                                    <input id="declaration_agree" name="declaration_agree" type="checkbox" value="Yes" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required>
+                                    <input id="declaration_agree" name="declaration_agree" type="checkbox" value="yes" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required>
                                     <label for="declaration_agree" class="ml-2 block text-sm font-medium text-gray-700">I have read and agree to the above declaration</label>
                                 </div>
                             </div>
                             
                             <div class="mt-4">
-                                <label for="signature" class="block text-sm font-medium text-gray-700 mb-1">Signature (upload)</label>
-                                <input type="file" id="signature" name="signature" accept="image/*" class="block w-full text-sm text-gray-500
-                                    file:mr-4 file:py-2 file:px-4
-                                    file:rounded-md file:border-0
-                                    file:text-sm file:font-semibold
-                                    file:bg-blue-50 file:text-blue-700
-                                    hover:file:bg-blue-100">
+                                <label for="signature" class="block text-sm font-medium text-gray-700 mb-1">Signature</label>
+                                <input 
+                                    type="file" 
+                                    id="signature" 
+                                    name="signature" 
+                                    accept="image/*"
+                                    class="block w-full text-sm text-gray-500
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-md file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-blue-50 file:text-blue-700
+                                        hover:file:bg-blue-100"
+                                    onchange="previewSignature(event)"
+                                    required
+                                >
+                                <span class="text-red-800">Image size must be (300x100px)</span>
+
+                                @error('signature')
+                                    <div class="mt-2 text-yellow-600 flex items-center">
+                                        <!-- Warning Icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12l-9-9-9 9h18z"/>
+                                        </svg>
+                                        <span class="text-md text-red-800">{{ $message }}</span>
+                                    </div>
+                                @enderror
+                                <div class="mt-2">
+                                    <img id="signaturePreview" class="h-24 border border-gray-300 rounded-md" style="display: none;" />
+                                </div>
                             </div>
-                        </div> --}}
+                            
+                        </div> 
                         
                         <!-- Submit Button -->
                         <div class="mt-8 flex justify-end">
@@ -637,5 +835,39 @@
                 successMessage.style.display = 'none';
             }
         }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+    <script>
+        function previewSignature(event) {
+            const input = event.target;
+            const preview = document.getElementById('signaturePreview');
+    
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+    
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        function previewPhoto(event) {
+            const input = event.target;
+            const preview = document.getElementById('photoPreview');
+    
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+    
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 @endsection

@@ -8,18 +8,18 @@ use App\Models\TeacherTrainingApplication;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('site.home.index');
     }
 
     public function store(Request $request)
     {
-        
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
-            'mother_name' => 'required|string|max:255', 
+            'mother_name' => 'required|string|max:255',
             'designation' => 'required|string|max:255|in:district_public_health_nurse,nursing_superintendent,deputy_nursing_superintendent,lecturer,nursing_instructor_instructor,nursing_supervisor,senior_staff_nurse_staff_nurse',
             'unique_id' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
@@ -46,175 +46,242 @@ class HomeController extends Controller
             'permanent_district' => 'required|string|max:255',
 
             'email' => 'required|email|max:255',
-            'mobile' => 'required|numeric|min:11',
+            'mobile' => 'required|string',
+
+            'ssc_year' => 'required|numeric',
+            'ssc_board' => 'required|string|max:255',
+            'ssc_grade' => 'required|string|max:255',
+            'ssc_group' => 'required|string|max:255',
+            'ssc_institution' => 'required|string|max:255',
+
+            'hsc_year' => 'nullable|numeric',
+            'hsc_board' => 'nullable|string|max:255',
+            'hsc_grade' => 'nullable|string|max:255',
+            'hsc_group' => 'nullable|string|max:255',
+            'hsc_institution' => 'nullable|string|max:255',
+
+            'diploma_nursing_year' => 'nullable|numeric',
+            'diploma_nursing_board' => 'nullable|string|max:255',
+            'diploma_nursing_grade' => 'nullable|string|max:255',
+            'diploma_nursing_group' => 'nullable|string|max:255',
+            'diploma_nursing_institution' => 'nullable|string|max:255',
+
+            'diploma_midwifery_year' => 'nullable|numeric',
+            'diploma_midwifery_board' => 'nullable|string|max:255',
+            'diploma_midwifery_grade' => 'nullable|string|max:255',
+            'diploma_midwifery_group' => 'nullable|string|max:255',
+            'diploma_midwifery_institution' => 'nullable|string|max:255',
+
+            'bsc_nursing_year' => 'nullable|numeric',
+            'bsc_nursing_board' => 'nullable|string|max:255',
+            'bsc_nursing_grade' => 'nullable|string|max:255',
+            'bsc_nursing_group' => 'nullable|string|max:255',
+            'bsc_nursing_institution' => 'nullable|string|max:255',
+
+            'post_bsc_year' => 'nullable|numeric',
+            'post_bsc_board' => 'nullable|string|max:255',
+            'post_bsc_grade' => 'nullable|string|max:255',
+            'post_bsc_group' => 'nullable|string|max:255',
+            'post_bsc_institution' => 'nullable|string|max:255',
+
+            'msc_nursing_year' => 'nullable|numeric',
+            'msc_nursing_board' => 'nullable|string|max:255',
+            'msc_nursing_grade' => 'nullable|string|max:255',
+            'msc_nursing_group' => 'nullable|string|max:255',
+            'msc_nursing_institution' => 'nullable|string|max:255',
+
+            'mph_year' => 'nullable|numeric',
+            'mph_board' => 'nullable|string|max:255',
+            'mph_grade' => 'nullable|string|max:255',
+            'mph_group' => 'nullable|string|max:255',
+            'mph_institution' => 'nullable|string|max:255',
 
 
-            // 'ssc_board' => 'required|string|max:255',
-            // 'ssc_grade' => 'required|string|max:255',
-            // 'ssc_group' => 'required|string|max:255',
-            // 'ssc_institution' => 'required|string|max:255',
-            // 'hsc_year' => 'required|numeric',
-            // 'hsc_board' => 'required|string|max:255',
-            // 'hsc_grade' => 'required|string|max:255',
-            // 'hsc_group' => 'required|string|max:255',
-            // 'hsc_institution' => 'required|string|max:255',
-            // 'diploma_nursing_year' => 'required|numeric',
-            // 'diploma_nursing_board' => 'required|string|max:255',
-            // 'diploma_nursing_grade' => 'required|string|max:255',
-            // 'diploma_nursing_group' => 'required|string|max:255',
-            // 'diploma_nursing_institution' => 'required|string|max:255',
-            // 'diploma_midwifery_year' => 'required|numeric',
-            // 'diploma_midwifery_board' => 'required|string|max:255',
-            // 'diploma_midwifery_grade' => 'required|string|max:255',
-            // 'diploma_midwifery_group' => 'required|string|max:255',
-            // 'diploma_midwifery_institution' => 'required|string|max:255',
-            // 'bsc_nursing_year' => 'required|numeric',
-            // 'bsc_nursing_board' => 'required|string|max:255',
-            // 'bsc_nursing_grade' => 'required|string|max:255',
-            // 'bsc_nursing_group' => 'required|string|max:255',
-            // 'bsc_nursing_institution' => 'required|string|max:255',
-            // 'post_bsc_year' => 'required|numeric',
-            // 'post_bsc_board' => 'required|string|max:255',
-            // 'post_bsc_grade' => 'required|string|max:255',
-            // 'post_bsc_group' => 'required|string|max:255',
-            // 'post_bsc_institution' => 'required|string|max:255',
-            // 'msc_nursing_year' => 'required|numeric',
-            // 'msc_nursing_board' => 'required|string|max:255',
-            // 'msc_nursing_grade' => 'required|string|max:255',
-            // 'msc_nursing_group' => 'required|string|max:255',
-            // 'msc_nursing_institution' => 'required|string|max:255',
-            // 'mph_year' => 'required|numeric',
-            // 'mph_board' => 'required|string|max:255',
-            // 'mph_grade' => 'required|string|max:255',
-            // 'mph_group' => 'required|string|max:255',
-            // 'mph_institution' => 'required|string|max:255',
-            // 'computer_skill' => 'required|string|max:255',
-            // 'english_skill' => 'required|string|max:255',
-            // 'agree_to_work' => 'required|in:yes,no',
-            // 'cpd_name_1' => 'required|string|max:255',
-            // 'cpd_date_1' => 'required|date',
-            // 'cpd_duration_1' => 'required|string|max:255',
-            // 'cpd_authority_1' => 'required|string|max:255',
-            // 'cpd_name_2' => 'required|string|max:255',
-            // 'cpd_date_2' => 'required|date',
-            // 'cpd_duration_2' => 'required|string|max:255',
-            // 'cpd_authority_2' => 'required|string|max:255',
-            // 'cpd_name_3' => 'required|string|max:255',
-            // 'cpd_date_3' => 'required|date',
-            // 'cpd_duration_3' => 'required|string|max:255',
-            // 'cpd_authority_3' => 'required|string|max:255',
-            // 'pub_title_1' => 'required|string|max:255',
-            // 'pub_date_1' => 'required|date',
-            // 'pub_journal_1' => 'required|string|max:255',
-            // 'pub_link_1' => 'required|url',
-            // 'pub_title_2' => 'required|string|max:255',
-            // 'pub_date_2' => 'required|date',
-            // 'pub_journal_2' => 'required|string|max:255',
-            // 'pub_link_2' => 'required|url',
-            // 'declaration_agree' => 'required|in:yes,no',
+            'computer_skill' => 'required|string|max:255|in:advanced,moderate,beginner',
+            'english_skill' => 'required|string|max:255|in:excellent,good,average,poor',
+            'agree_to_work' => 'required|in:yes,no',
+
+            'cpd_name_1' => 'nullable|string|max:255',
+            'cpd_date_1' => 'nullable|date',
+            'cpd_duration_1' => 'nullable|string|max:255',
+            'cpd_authority_1' => 'nullable|string|max:255',
+            'cpd_name_2' => 'nullable|string|max:255',
+            'cpd_date_2' => 'nullable|date',
+            'cpd_duration_2' => 'nullable|string|max:255',
+            'cpd_authority_2' => 'nullable|string|max:255',
+            'cpd_name_3' => 'nullable|string|max:255',
+            'cpd_date_3' => 'nullable|date',
+            'cpd_duration_3' => 'nullable|string|max:255',
+            'cpd_authority_3' => 'nullable|string|max:255',
+
+            'pub_title_1' => 'nullable|string|max:255',
+            'pub_date_1' => 'nullable|date',
+            'pub_journal_1' => 'nullable|string|max:255',
+            'pub_link_1' => 'nullable|url',
+            'pub_title_2' => 'nullable|string|max:255',
+            'pub_date_2' => 'nullable|date',
+            'pub_journal_2' => 'nullable|string|max:255',
+            'pub_link_2' => 'nullable|url',
+
+            'declaration_agree' => 'required|in:yes,no',
+            // 'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048|dimensions:width=300,height=400',
+            // 'signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=300,height=100',
+
+
         ]);
 
-        // return $request->all();
-        // Store the application data in the database
-        TeacherTrainingApplication::create($request->all());
 
-        // Redirect back with a success message
+         // Store the photo
+        if ($request->hasFile('photo')) {
+            // Store the photo in the 'photos' directory, you can use other directories like 'signatures'
+            $photoPath = $request->file('photo')->store('photos', 'public');
+        }
+
+        // Store the signature
+        if ($request->hasFile('signature')) {
+            // Store the signature in the 'signatures' directory
+            $signaturePath = $request->file('signature')->store('signatures', 'public');
+        }
+        
+        // Store the application data in the database
+        $application = TeacherTrainingApplication::create([
+            'name' => $request->name,
+            'father_name' => $request->father_name,
+            'mother_name' => $request->mother_name,
+            'designation' => $request->designation,
+            'unique_id' => $request->unique_id,
+            'date_of_birth' => $request->date_of_birth,
+            'gender' => $request->gender,
+            'religion' => $request->religion,
+            'nid_number' => $request->nid_number,
+
+            'workplace' => $request->workplace,
+            'first_joining_date' => $request->first_joining_date,
+            'service_length' => $request->service_length,
+            'clinical_experience' => $request->clinical_experience,
+            'management_experience' => $request->management_experience,
+            'teaching_experience' => $request->teaching_experience,
+            'bnmc_registration' => $request->bnmc_registration,
+            'bnmc_expiry' => $request->bnmc_expiry,
+
+            'present_vill' => $request->present_vill,
+            'present_post' => $request->present_post,
+            'present_upazilla' => $request->present_upazilla,
+            'present_district' => $request->present_district,
+            'permanent_vill' => $request->permanent_vill,
+            'permanent_post' => $request->permanent_post,
+            'permanent_upazilla' => $request->permanent_upazilla,
+            'permanent_district' => $request->permanent_district,
+
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+
+            'qualifications' => [
+                'ssc' => [
+                    'year' => $request->ssc_year,
+                    'board' => $request->ssc_board,
+                    'grade' => $request->ssc_grade,
+                    'group' => $request->ssc_group,
+                    'institution' => $request->ssc_institution,
+                ],
+                'hsc' => [
+                    'year' => $request->hsc_year,
+                    'board' => $request->hsc_board,
+                    'grade' => $request->hsc_grade,
+                    'group' => $request->hsc_group,
+                    'institution' => $request->hsc_institution,
+                ],
+                'diploma_nursing' => [
+                    'year' => $request->diploma_nursing_year,
+                    'board' => $request->diploma_nursing_board,
+                    'grade' => $request->diploma_nursing_grade,
+                    'group' => $request->diploma_nursing_group,
+                    'institution' => $request->diploma_nursing_institution,
+                ],
+                'diploma_midwifery' => [
+                    'year' => $request->diploma_midwifery_year,
+                    'board' => $request->diploma_midwifery_board,
+                    'grade' => $request->diploma_midwifery_grade,
+                    'group' => $request->diploma_midwifery_group,
+                    'institution' => $request->diploma_midwifery_institution,
+                ],
+                'bsc_nursing' => [
+                    'year' => $request->bsc_nursing_year,
+                    'board' => $request->bsc_nursing_board,
+                    'grade' => $request->bsc_nursing_grade,
+                    'group' => $request->bsc_nursing_group,
+                    'institution' => $request->bsc_nursing_institution,
+                ],
+                'post_bsc' => [
+                    'year' => $request->post_bsc_year,
+                    'board' => $request->post_bsc_board,
+                    'grade' => $request->post_bsc_grade,
+                    'group' => $request->post_bsc_group,
+                    'institution' => $request->post_bsc_institution,
+                ],
+                'msc_nursing' => [
+                    'year' => $request->msc_nursing_year,
+                    'board' => $request->msc_nursing_board,
+                    'grade' => $request->msc_nursing_grade,
+                    'group' => $request->msc_nursing_group,
+                    'institution' => $request->msc_nursing_institution,
+                ],
+                'mph' => [
+                    'year' => $request->mph_year,
+                    'board' => $request->mph_board,
+                    'grade' => $request->mph_grade,
+                    'group' => $request->mph_group,
+                    'institution' => $request->mph_institution,
+                ],
+            ],
+
+            'computer_skill' => $request->computer_skill,
+            'english_skill' => $request->english_skill,
+            'agree_to_work' => $request->agree_to_work == 'yes' ? true : false,
+
+            'cpd_activity' => [
+                [
+                    'name' => $request->cpd_name_1,
+                    'date' => $request->cpd_date_1,
+                    'duration' => $request->cpd_duration_1,
+                    'authority' => $request->cpd_authority_1,
+                ],
+                [
+                    'name' => $request->cpd_name_2,
+                    'date' => $request->cpd_date_2,
+                    'duration' => $request->cpd_duration_2,
+                    'authority' => $request->cpd_authority_2,
+                ],
+                [
+                    'name' => $request->cpd_name_3,
+                    'date' => $request->cpd_date_3,
+                    'duration' => $request->cpd_duration_3,
+                    'authority' => $request->cpd_authority_3,
+                ],
+            ],
+
+            'publications' => [
+                [
+                    'title' => $request->pub_title_1,
+                    'date' => $request->pub_date_1,
+                    'journal' => $request->pub_journal_1,
+                    'link' => $request->pub_link_1,
+                ],
+                [
+                    'title' => $request->pub_title_2,
+                    'date' => $request->pub_date_2,
+                    'journal' => $request->pub_journal_2,
+                    'link' => $request->pub_link_2,
+                ],
+            ],
+
+            'declaration_agree' => $request->declaration_agree == 'yes' ? true : false,
+
+            'photo' => $photoPath ?? null,
+            'signature' => $signaturePath ?? null,
+        ]);
+
         return back()->with('success', 'Application submitted successfully!');
     }
 
-
-
-    // {
-    //     "_token": "HRKlUHx4RSjebFyRxHiAToCRxycwJcz1VJDyAPXq",
-    //     "name": "Cara Odom",
-    //     "father_name": "Lacey Francis",
-    //     "mother_name": "Jason Odom",
-    //     "designation": "Lecturer",
-    //     "unique_id": "Ut quisquam excepteu",
-    //     "date_of_birth": "2003-01-01",
-    //     "gender": "Male",
-    //     "religion": "Hindu",
-    //     "nid_number": "468",
-    //     "workplace": "Exercitation consequ",
-    //     "first_joining_date": "2009-07-26",
-    //     "service_length": "1979",
-    //     "clinical_experience": "2004",
-    //     "management_experience": "2000",
-    //     "teaching_experience": "2001",
-    //     "bnmc_registration": "289",
-    //     "bnmc_expiry": "2007-10-23",
-    //     "present_vill": "Commodi fugiat aliqu",
-    //     "present_post": "Aliquip fugiat dolo",
-    //     "present_upazilla": "Quaerat quos volupta",
-    //     "present_district": "Est voluptatibus nob",
-    //     "permanent_vill": "Omnis quos eos sint",
-    //     "permanent_post": "Enim id ad quo qui",
-    //     "permanent_upazilla": "Deserunt officiis ex",
-    //     "permanent_district": "Ad facere et consect",
-    //     "email": "pupyduvicy@mailinator.com",
-    //     "mobile": "589",
-    //     "ssc_board": "Ut rerum labore quia",
-    //     "ssc_grade": "Sint fuga Voluptat",
-    //     "ssc_group": "Culpa sint quam earu",
-    //     "ssc_institution": "Voluptate non maxime",
-    //     "hsc_year": "1972",
-    //     "hsc_board": "Nisi facere aute in",
-    //     "hsc_grade": "A consequatur aliqu",
-    //     "hsc_group": "Cillum dignissimos v",
-    //     "hsc_institution": "Ex natus rem qui pos",
-    //     "diploma_nursing_year": "1993",
-    //     "diploma_nursing_board": "Sunt aut velit et p",
-    //     "diploma_nursing_grade": "Magnam recusandae Q",
-    //     "diploma_nursing_group": "Expedita error aute",
-    //     "diploma_nursing_institution": "Veritatis delectus",
-    //     "diploma_midwifery_year": "2013",
-    //     "diploma_midwifery_board": "Ipsa velit nostrum",
-    //     "diploma_midwifery_grade": "Cupiditate earum off",
-    //     "diploma_midwifery_group": "Itaque maxime exerci",
-    //     "diploma_midwifery_institution": "Saepe quo dolores ci",
-    //     "bsc_nursing_year": "2005",
-    //     "bsc_nursing_board": "Illum labore illum",
-    //     "bsc_nursing_grade": "Reiciendis voluptate",
-    //     "bsc_nursing_group": "Culpa omnis rem quia",
-    //     "bsc_nursing_institution": "Ullamco vero enim al",
-    //     "post_bsc_year": "2011",
-    //     "post_bsc_board": "Culpa neque tempore",
-    //     "post_bsc_grade": "Excepturi soluta a u",
-    //     "post_bsc_group": "Possimus vel archit",
-    //     "post_bsc_institution": "Nostrum fugiat volu",
-    //     "msc_nursing_year": "1998",
-    //     "msc_nursing_board": "Sapiente dolore ulla",
-    //     "msc_nursing_grade": "Porro sed facere sin",
-    //     "msc_nursing_group": "Aliqua Sit quis des",
-    //     "msc_nursing_institution": "Aut ut alias sint e",
-    //     "mph_year": "1994",
-    //     "mph_board": "Omnis quis illum lo",
-    //     "mph_grade": "Architecto magnam oc",
-    //     "mph_group": "A et nisi praesentiu",
-    //     "mph_institution": "Elit cupidatat nece",
-    //     "computer_skill": "Moderate",
-    //     "english_skill": "Average",
-    //     "agree_to_work": "Yes",
-    //     "cpd_name_1": "Basil Cannon",
-    //     "cpd_date_1": "2006-07-08",
-    //     "cpd_duration_1": "Tempora minima commo",
-    //     "cpd_authority_1": "Est temporibus in qu",
-    //     "cpd_name_2": "Inga Vega",
-    //     "cpd_date_2": "1993-10-11",
-    //     "cpd_duration_2": "Ut aut doloribus sus",
-    //     "cpd_authority_2": "Ipsa quisquam recus",
-    //     "cpd_name_3": "Abigail Sparks",
-    //     "cpd_date_3": "2010-10-06",
-    //     "cpd_duration_3": "Ut totam commodi con",
-    //     "cpd_authority_3": "Voluptate qui possim",
-    //     "pub_title_1": "Cum rerum cumque vel",
-    //     "pub_date_1": "2021-09-11",
-    //     "pub_journal_1": "Labore molestias aut",
-    //     "pub_link_1": "https://www.qiziwawygabyrov.com",
-    //     "pub_title_2": "Dolor ea dolorem mag",
-    //     "pub_date_2": "2011-10-12",
-    //     "pub_journal_2": "Harum esse non ut te",
-    //     "pub_link_2": "https://www.nanehatemituxug.com",
-    //     "declaration_agree": "Yes"
-    //     }
 }
